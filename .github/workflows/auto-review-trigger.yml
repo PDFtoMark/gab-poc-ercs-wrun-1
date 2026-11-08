@@ -1,0 +1,18 @@
+on:
+  pull_request:
+
+name: Auto Review Bot Trigger
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    name: Trigger
+    steps:
+      - name: Write attacker-controlled PR number
+        run: |
+          printf '123\nINJECTED_OUTPUT=owned-by-fork\npr=999\n' > pr-number.txt
+      - name: Save PR Number
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08
+        with:
+          name: pr-number
+          path: pr-number.txt
